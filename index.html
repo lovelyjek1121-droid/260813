@@ -6,9 +6,9 @@
   <title>우리집 칭찬매니저 🎀</title>
   
   <!-- PWA Settings for Mobile Home Screen -->
-  <link rel="manifest" href="data:application/json,{\"name\":\"우리집 칭찬매니저\",\"short_name\":\"칭찬매니저\",\"start_url\":\".\",\"display\":\"standalone\",\"background_color\":\"#FFF5F7\",\"theme_color\":\"#FFB7B2\"}">
+  <link rel="manifest" href="data:application/json,{\"name\":\"우리집 칭찬매니저\",\"short_name\":\"칭찬매니저\",\"start_url\":\".\",\"display\":\"standalone\",\"background_color\":\"#F8FAFC\",\"theme_color\":\"#4F46E5\"}">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="칭찬매니저">
   
   <!-- Tailwind CSS -->
@@ -27,19 +27,11 @@
       theme: {
         extend: {
           colors: {
-            pastelPink: '#FFB7B2',
-            pastelPinkLight: '#FFF0F2',
-            pastelYellow: '#FFE5A3',
-            pastelYellowLight: '#FFFBEB',
-            pastelMint: '#B5EAD7',
-            pastelMintDark: '#72C1A8',
-            pastelPurple: '#E2F0CB',
-            pastelLavender: '#E0C3FC',
-            pastelBlue: '#C7CEEA',
-            pastelBlueLight: '#F0F4FF',
-            pastelPeach: '#FFDAC1',
-            textDark: '#4A3E3D',
-            textMuted: '#8C7A79'
+            brandPrimary: '#4F46E5',
+            brandDark: '#0F172A',
+            brandBg: '#F8FAFC',
+            textDark: '#1E293B',
+            textMuted: '#64748B'
           },
           fontFamily: {
             sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
@@ -50,128 +42,146 @@
   </script>
 
   <style>
-    /* Custom scrollbar & mobile touch feel */
+    /* Custom scrollbar & mobile touch optimizations */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #FFB7B2; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
     body {
       -webkit-tap-highlight-color: transparent;
       user-select: none;
+      background-color: #F1F5F9;
+    }
+    .point-card-gradient {
+      background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #312E81 100%);
     }
     .badge-bounce {
       animation: bounce 2s infinite;
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
+      50% { transform: translateY(-3px); }
     }
-    /* Roulette Animation */
     .wheel-spin {
       transition: transform 3.5s cubic-bezier(0.15, 0.99, 0.18, 1);
     }
   </style>
 </head>
-<body class="bg-pink-50/60 text-textDark font-sans min-h-screen flex justify-center items-start pb-10">
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex justify-center items-start md:py-6 pb-10">
 
   <!-- Main Mobile Container -->
-  <div id="app" class="w-full max-w-md bg-white min-h-screen shadow-xl rounded-none md:rounded-3xl overflow-hidden flex flex-direction flex-col relative border-0 md:border md:border-pink-100 my-0 md:my-4">
+  <div id="app" class="w-full max-w-md bg-slate-50 min-h-screen md:min-h-[840px] shadow-2xl rounded-none md:rounded-3xl overflow-hidden flex flex-col relative border-0 md:border md:border-slate-200">
 
-    <!-- Header Section -->
-    <header class="bg-gradient-to-r from-pastelPink via-pastelPeach to-pastelYellow p-5 pb-6 text-white rounded-b-3xl shadow-sm relative">
-      <div class="flex justify-between items-center mb-2">
+    <!-- Header Section (Light, Clean Modern Bar) -->
+    <header class="bg-white px-5 pt-5 pb-4 border-b border-slate-200/80 sticky top-0 z-20 shadow-xs">
+      <div class="flex justify-between items-center mb-3">
         <div class="flex items-center gap-2">
-          <span class="text-2xl">🎀</span>
-          <h1 class="font-bold text-xl tracking-tight text-textDark drop-shadow-sm">우리집 매니저</h1>
+          <div class="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-xs font-black tracking-tight shadow-xs">
+            ✨
+          </div>
+          <div>
+            <h1 class="font-extrabold text-base tracking-tight text-slate-900">우리집 칭찬매니저</h1>
+            <p class="text-[10px] text-slate-400 font-medium">함께 모으는 즐거운 습관</p>
+          </div>
         </div>
-        <!-- Profile / Role Selector -->
-        <button id="roleToggleBtn" onclick="openRoleModal()" class="bg-white/80 hover:bg-white text-textDark font-bold text-xs px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1.5 transition-all">
-          <span id="roleIcon">👶</span>
-          <span id="roleName">자녀 모드</span>
-          <i class="fa-solid fa-chevron-down text-[10px] text-textMuted"></i>
+        <!-- Profile / Role Selector Button -->
+        <button id="roleToggleBtn" onclick="openRoleModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs px-3 py-1.5 rounded-full border border-slate-200 shadow-2xs flex items-center gap-1.5 active:scale-95 transition-all">
+          <span id="roleIcon">👧</span>
+          <span id="roleName">첫째</span>
+          <i class="fa-solid fa-chevron-down text-[9px] text-slate-400"></i>
         </button>
       </div>
 
-      <!-- Sync Room Badge -->
-      <div class="flex items-center justify-between text-xs bg-white/40 backdrop-blur-md rounded-2xl px-3 py-1.5 mt-2 text-textDark">
-        <div class="flex items-center gap-1.5 overflow-hidden">
-          <i class="fa-solid fa-house-user text-pink-500"></i>
-          <span id="familyRoomDisplay" class="font-semibold truncate">가족 코드: 연결 중...</span>
+      <!-- Family Sync Room Bar (Clean Soft Light Blue/Indigo Style for high visual contrast with Point Card) -->
+      <div class="flex items-center justify-between text-xs bg-indigo-50/90 rounded-2xl px-3.5 py-2 border border-indigo-100 text-indigo-900 shadow-2xs">
+        <div class="flex items-center gap-2 truncate">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="familyRoomDisplay" class="font-semibold text-xs text-indigo-950 truncate">가족 코드: 연결 중...</span>
         </div>
-        <div class="flex gap-1">
-          <button onclick="openShareModal()" class="bg-amber-300/90 hover:bg-amber-300 text-amber-900 px-2 py-0.5 rounded-lg text-[11px] font-bold shadow-2xs flex items-center gap-1 active:scale-95 transition-all">
-            <i class="fa-solid fa-qrcode text-[10px]"></i> QR/초대
+        <div class="flex gap-1.5 shrink-0">
+          <button onclick="openShareModal()" class="bg-white hover:bg-indigo-100/60 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-xl text-[11px] font-bold flex items-center gap-1 active:scale-95 transition-all shadow-2xs">
+            <i class="fa-solid fa-qrcode text-[10px]"></i> QR
           </button>
-          <button onclick="openSyncModal()" class="bg-white/80 hover:bg-white px-2 py-0.5 rounded-lg text-[11px] font-bold shadow-2xs">
-            코드 변경 🔗
+          <button onclick="openSyncModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1 rounded-xl text-[11px] font-bold active:scale-95 transition-all shadow-2xs">
+            코드 변경
           </button>
         </div>
       </div>
     </header>
 
-    <!-- Top Stats & Allowance Points Card -->
-    <section class="px-4 -mt-4 z-10">
-      <div class="bg-white rounded-2xl p-4 shadow-lg border border-pink-100 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-2xl bg-pastelYellowLight border-2 border-pastelYellow flex items-center justify-center text-2xl shadow-inner">
-            ⭐
-          </div>
-          <div>
-            <p class="text-xs text-textMuted font-medium">모은 용돈 & 포인트</p>
-            <div class="flex items-baseline gap-1">
-              <span id="pointDisplay" class="text-2xl font-black text-amber-500">0</span>
-              <span class="text-xs font-bold text-amber-600">P</span>
+    <!-- Top Point Balance Card (Dark Premium Card for Strong Visual Contrast) -->
+    <section class="px-4 pt-4">
+      <div class="point-card-gradient rounded-3xl p-5 text-white shadow-lg border border-indigo-900/40 relative overflow-hidden">
+        <!-- Decoration chip & Status -->
+        <div class="flex justify-between items-start mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-5 bg-amber-400/90 rounded-sm border border-amber-300/50 flex items-center justify-center">
+              <div class="w-3.5 h-2.5 border border-amber-700/50 rounded-2xs"></div>
             </div>
+            <span class="text-[11px] text-slate-300 font-mono tracking-widest font-semibold">FAMILY CARD</span>
           </div>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold backdrop-blur-xs">실시간 동기화중</span>
         </div>
 
-        <button onclick="openRewardShopModal()" class="bg-gradient-to-r from-pastelLavender to-pastelBlue text-textDark font-bold px-3.5 py-2 rounded-xl text-xs shadow-sm hover:opacity-90 active:scale-95 transition-all flex items-center gap-1.5">
-          <span>🎁</span>
-          <span>보상/룰렛</span>
-        </button>
+        <!-- Point Balance Counter -->
+        <div class="flex items-end justify-between pt-1">
+          <div>
+            <p class="text-[11px] text-indigo-200 font-medium tracking-tight">현재 보유 포인트</p>
+            <div class="flex items-baseline gap-1.5 mt-0.5">
+              <span id="pointDisplay" class="text-3xl font-black tracking-tight text-white">0</span>
+              <span class="text-sm font-extrabold text-amber-300">P</span>
+            </div>
+          </div>
+
+          <button onclick="openRewardShopModal()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-4 py-2.5 rounded-2xl text-xs shadow-md active:scale-95 transition-all flex items-center gap-1.5">
+            <span>🎁</span>
+            <span>보상/혜택 교환</span>
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- Sticker Board Banner -->
-    <section class="px-4 mt-4">
-      <div class="bg-gradient-to-r from-pastelPinkLight to-pastelYellowLight rounded-2xl p-3 border border-pink-100">
-        <div class="flex justify-between items-center mb-2">
-          <span class="text-xs font-bold text-textDark flex items-center gap-1">
-            <span>✨ 칭찬 스티커판</span>
-            <span id="stickerCount" class="text-pink-500 font-extrabold">(0개)</span>
+    <section class="px-4 mt-3">
+      <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-2xs">
+        <div class="flex justify-between items-center mb-2.5">
+          <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            <span class="text-amber-500">🌟</span>
+            <span>칭찬 스티커 모음판</span>
+            <span id="stickerCount" class="text-indigo-600 font-extrabold">(0개)</span>
           </span>
-          <span class="text-[10px] text-textMuted">과제 1개 승인 = 🌟 스티커 1개</span>
+          <span class="text-[10px] text-slate-400 font-medium">과제 완료 승인 = 🌟 스티커</span>
         </div>
-        <!-- Sticker Grid (Shows up to 10 stickers) -->
-        <div id="stickerGrid" class="grid grid-cols-5 gap-1.5">
-          <!-- JS dynamic render -->
+        <!-- Sticker Grid -->
+        <div id="stickerGrid" class="grid grid-cols-5 gap-2">
+          <!-- Dynamic sticker elements rendered here -->
         </div>
       </div>
     </section>
 
-    <!-- Navigation Tabs -->
-    <div class="px-4 mt-5">
-      <div class="flex bg-pink-100/60 p-1 rounded-2xl text-xs font-bold">
-        <button id="tabTasksBtn" onclick="switchTab('tasks')" class="flex-1 py-2 rounded-xl text-center transition-all bg-white text-pink-600 shadow-xs">
-          📚 오늘의 과제 (<span id="taskBadgeCount">0</span>)
+    <!-- Navigation Tabs (3 Minimalist Tabs) -->
+    <div class="px-4 mt-3">
+      <div class="flex bg-slate-200/70 p-1 rounded-2xl text-[11px] font-bold border border-slate-200/60">
+        <button id="tabTasksBtn" onclick="switchTab('tasks')" class="flex-1 py-2 rounded-xl text-center transition-all bg-white text-slate-900 shadow-2xs font-extrabold">
+          📚 과제 (<span id="taskBadgeCount">0</span>)
         </button>
-        <button id="tabScheduleBtn" onclick="switchTab('schedule')" class="flex-1 py-2 rounded-xl text-center transition-all text-textMuted hover:text-textDark">
-          📅 학원/과외 시간표
+        <button id="tabScheduleBtn" onclick="switchTab('schedule')" class="flex-1 py-2 rounded-xl text-center transition-all text-slate-500 hover:text-slate-800">
+          📅 학원 일정
+        </button>
+        <button id="tabHistoryBtn" onclick="switchTab('history')" class="flex-1 py-2 rounded-xl text-center transition-all text-slate-500 hover:text-slate-800">
+          📜 활동 기록
         </button>
       </div>
     </div>
 
     <!-- Main Content Area -->
-    <main class="flex-1 px-4 py-4 space-y-4">
+    <main class="flex-1 px-4 py-3 space-y-3">
 
       <!-- TAB 1: Tasks & Homework Checklist -->
-      <div id="tasksTab" class="space-y-3">
+      <div id="tasksTab" class="space-y-2.5">
         <div class="flex justify-between items-center px-1">
-          <div class="flex items-center gap-1.5">
-            <h2 class="font-bold text-sm text-textDark">오늘 끝내야 할 과제</h2>
-            <span class="text-[10px] bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full">완료 시 +500P</span>
-          </div>
-          <button onclick="openAddTaskModal()" class="w-8 h-8 rounded-full bg-pastelPink text-white font-bold text-base shadow-sm hover:bg-pink-400 active:scale-95 flex items-center justify-center transition-all">
-            <i class="fa-solid fa-plus"></i>
+          <h2 class="font-bold text-xs text-slate-400 uppercase tracking-wider">오늘의 도전 과제</h2>
+          <button onclick="openAddTaskModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-2xs active:scale-95 flex items-center gap-1 transition-all">
+            <i class="fa-solid fa-plus text-[10px]"></i> 과제 추가
           </button>
         </div>
 
@@ -182,14 +192,11 @@
       </div>
 
       <!-- TAB 2: Schedule & Tutoring Timetable -->
-      <div id="scheduleTab" class="space-y-3 hidden">
+      <div id="scheduleTab" class="space-y-2.5 hidden">
         <div class="flex justify-between items-center px-1">
-          <div>
-            <h2 class="font-bold text-sm text-textDark">오늘의 학원 & 과외 일정이예요</h2>
-            <p class="text-[11px] text-textMuted">시간순으로 자동 정렬됩니다 ⏰</p>
-          </div>
-          <button onclick="openAddScheduleModal()" class="w-8 h-8 rounded-full bg-pastelMintDark text-white font-bold text-base shadow-sm hover:opacity-90 active:scale-95 flex items-center justify-center transition-all">
-            <i class="fa-solid fa-plus"></i>
+          <h2 class="font-bold text-xs text-slate-400 uppercase tracking-wider">학원 및 과외 일정</h2>
+          <button onclick="openAddScheduleModal()" class="px-3 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs shadow-2xs active:scale-95 flex items-center gap-1 transition-all">
+            <i class="fa-solid fa-plus text-[10px]"></i> 일정 추가
           </button>
         </div>
 
@@ -199,115 +206,130 @@
         </div>
       </div>
 
+      <!-- TAB 3: Activity Log / History -->
+      <div id="historyTab" class="space-y-2.5 hidden">
+        <div class="flex justify-between items-center px-1">
+          <h2 class="font-bold text-xs text-slate-400 uppercase tracking-wider">가족 활동 내역</h2>
+          <button onclick="clearHistoryLogs()" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-red-500 text-[10px] font-semibold transition-all">
+            기록 비우기
+          </button>
+        </div>
+
+        <!-- Activity History List -->
+        <div id="historyList" class="space-y-2">
+          <!-- Dynamic logs rendered here -->
+        </div>
+      </div>
+
     </main>
 
     <!-- Footer Sync Indicator -->
-    <footer class="text-center py-2 text-[11px] text-textMuted border-t border-pink-50 bg-pink-50/30">
-      <span id="syncStatusText"><i class="fa-solid fa-rotate text-pink-400 animate-spin mr-1"></i> 동기화 준비 중</span>
+    <footer class="text-center py-3 text-[11px] text-slate-400 border-t border-slate-200/60 bg-white">
+      <span id="syncStatusText"><i class="fa-solid fa-rotate text-slate-300 animate-spin mr-1"></i> 동기화 준비 중</span>
     </footer>
   </div>
 
   <!-- MODALS SECTION -->
 
   <!-- 1. Role Selection Modal -->
-  <div id="roleModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-pink-100 space-y-4">
+  <div id="roleModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-slate-200 space-y-4">
       <div class="text-center">
-        <h3 class="font-bold text-base text-textDark">가족 프로필 선택 👨‍👩‍👧‍👦</h3>
-        <p class="text-xs text-textMuted mt-1">사용하시는 모드를 선택해 주세요</p>
+        <h3 class="font-bold text-base text-slate-900">프로필 선택 👨‍👩‍👧‍👧</h3>
+        <p class="text-xs text-slate-400 mt-0.5">사용할 모드를 선택해 주세요</p>
       </div>
 
       <div class="space-y-2">
-        <button onclick="setRole('child_1', '첫째 (민우)')" class="w-full p-3 rounded-2xl border-2 border-pink-100 hover:border-pastelPink bg-pink-50/50 flex items-center gap-3 active:scale-98 transition-all">
-          <span class="text-2xl">👦</span>
-          <div class="text-left">
-            <div class="font-bold text-xs text-textDark">첫째 자녀 모드 (민우)</div>
-            <div class="text-[10px] text-textMuted">과제 완료 신청 및 룰렛 교환</div>
-          </div>
-        </button>
-
-        <button onclick="setRole('child_2', '둘째 (민서)')" class="w-full p-3 rounded-2xl border-2 border-pink-100 hover:border-pastelPink bg-pink-50/50 flex items-center gap-3 active:scale-98 transition-all">
+        <button onclick="setRole('child_1', '첫째')" class="w-full p-3 rounded-2xl border border-slate-200 hover:border-indigo-400 bg-slate-50 hover:bg-indigo-50/40 flex items-center gap-3 active:scale-98 transition-all">
           <span class="text-2xl">👧</span>
           <div class="text-left">
-            <div class="font-bold text-xs text-textDark">둘째 자녀 모드 (민서)</div>
-            <div class="text-[10px] text-textMuted">과제 완료 신청 및 룰렛 교환</div>
+            <div class="font-bold text-xs text-slate-800">첫째 모드</div>
+            <div class="text-[10px] text-slate-400">과제 수행 & 포인트 교환</div>
           </div>
         </button>
 
-        <button onclick="setRole('parent_mom', '엄마')" class="w-full p-3 rounded-2xl border-2 border-pink-100 hover:border-pastelPink bg-pink-50/50 flex items-center gap-3 active:scale-98 transition-all">
+        <button onclick="setRole('child_2', '둘째')" class="w-full p-3 rounded-2xl border border-slate-200 hover:border-indigo-400 bg-slate-50 hover:bg-indigo-50/40 flex items-center gap-3 active:scale-98 transition-all">
+          <span class="text-2xl">👱‍♀️</span>
+          <div class="text-left">
+            <div class="font-bold text-xs text-slate-800">둘째 모드</div>
+            <div class="text-[10px] text-slate-400">과제 수행 & 포인트 교환</div>
+          </div>
+        </button>
+
+        <button onclick="setRole('parent_mom', '엄마')" class="w-full p-3 rounded-2xl border border-slate-200 hover:border-indigo-400 bg-slate-50 hover:bg-indigo-50/40 flex items-center gap-3 active:scale-98 transition-all">
           <span class="text-2xl">👩</span>
           <div class="text-left">
-            <div class="font-bold text-xs text-textDark">엄마 모드 (부모)</div>
-            <div class="text-[10px] text-textMuted">과제 검사 후 용돈/포인트 승인</div>
+            <div class="font-bold text-xs text-slate-800">엄마 모드</div>
+            <div class="text-[10px] text-slate-400">과제 승인 & 시간표/포인트 관리</div>
           </div>
         </button>
 
-        <button onclick="setRole('parent_dad', '아빠')" class="w-full p-3 rounded-2xl border-2 border-pink-100 hover:border-pastelPink bg-pink-50/50 flex items-center gap-3 active:scale-98 transition-all">
+        <button onclick="setRole('parent_dad', '아빠')" class="w-full p-3 rounded-2xl border border-slate-200 hover:border-indigo-400 bg-slate-50 hover:bg-indigo-50/40 flex items-center gap-3 active:scale-98 transition-all">
           <span class="text-2xl">👨</span>
           <div class="text-left">
-            <div class="font-bold text-xs text-textDark">아빠 모드 (부모)</div>
-            <div class="text-[10px] text-textMuted">과제 검사 후 용돈/포인트 승인</div>
+            <div class="font-bold text-xs text-slate-800">아빠 모드</div>
+            <div class="text-[10px] text-slate-400">과제 승인 & 시간표/포인트 관리</div>
           </div>
         </button>
       </div>
 
-      <button onclick="closeModal('roleModal')" class="w-full py-2.5 rounded-xl bg-gray-100 text-xs font-bold text-textMuted hover:bg-gray-200">
+      <button onclick="closeModal('roleModal')" class="w-full py-2.5 rounded-xl bg-slate-100 text-xs font-bold text-slate-500 hover:bg-slate-200">
         닫기
       </button>
     </div>
   </div>
 
   <!-- 2. Family Sync Code Modal -->
-  <div id="syncModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-pink-100 space-y-4">
+  <div id="syncModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-slate-200 space-y-4">
       <div class="text-center">
         <div class="text-3xl mb-1">👨‍👩‍👧‍👦</div>
-        <h3 class="font-bold text-base text-textDark">가족 실시간 연동 코드</h3>
-        <p class="text-xs text-textMuted mt-1">모든 가족 폰에서 동일한 코드를 입력하면 실시간으로 시간표와 용돈이 연결됩니다!</p>
+        <h3 class="font-bold text-base text-slate-900">가족 실시간 연동 코드</h3>
+        <p class="text-xs text-slate-500 mt-1">모든 가족 폰에서 동일한 코드를 입력하면 실시간으로 시간표와 포인트가 연결됩니다!</p>
       </div>
 
       <div class="space-y-2">
-        <label class="text-xs font-bold text-textMuted">가족 공유 코드 (영문/숫자)</label>
-        <input type="text" id="syncCodeInput" placeholder="예: happy-home-77" class="w-full px-3 py-2.5 rounded-xl border border-pink-200 text-sm font-semibold text-center focus:outline-none focus:ring-2 focus:ring-pastelPink">
+        <label class="text-xs font-bold text-slate-500">가족 공유 코드 (영문/숫자)</label>
+        <input type="text" id="syncCodeInput" placeholder="예: HAPPY-HOME-77" class="w-full px-3 py-2.5 rounded-2xl border border-slate-300 text-sm font-bold text-center focus:outline-none focus:ring-2 focus:ring-indigo-500">
       </div>
 
       <div class="flex gap-2">
-        <button onclick="generateRandomSyncCode()" class="flex-1 py-2.5 rounded-xl bg-pastelYellow text-xs font-bold text-textDark hover:opacity-90">
+        <button onclick="generateRandomSyncCode()" class="flex-1 py-2.5 rounded-2xl bg-slate-100 text-xs font-bold text-slate-700 hover:bg-slate-200">
           랜덤 생성 🎲
         </button>
-        <button onclick="applySyncCode()" class="flex-1 py-2.5 rounded-xl bg-pastelPink text-xs font-bold text-white hover:bg-pink-400 shadow-sm">
+        <button onclick="applySyncCode()" class="flex-1 py-2.5 rounded-2xl bg-indigo-600 text-xs font-bold text-white hover:bg-indigo-700 shadow-2xs">
           연동하기 🔗
         </button>
       </div>
 
-      <button onclick="closeModal('syncModal')" class="w-full py-2 text-xs font-bold text-textMuted hover:underline">
+      <button onclick="closeModal('syncModal')" class="w-full py-2 text-xs font-bold text-slate-400 hover:underline">
         취소
       </button>
     </div>
   </div>
 
-  <!-- 6. Share Link / QR Code Modal -->
-  <div id="shareModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-pink-100 space-y-4 text-center">
+  <!-- Share Link / QR Code Modal -->
+  <div id="shareModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-slate-200 space-y-4 text-center">
       <div class="flex justify-between items-center">
-        <h3 class="font-bold text-base text-textDark">📱 핸드폰 연결 초대</h3>
-        <button onclick="closeModal('shareModal')" class="text-textMuted hover:text-textDark text-sm">
+        <h3 class="font-bold text-base text-slate-900">📱 핸드폰 연결 초대</h3>
+        <button onclick="closeModal('shareModal')" class="text-slate-400 hover:text-slate-700 text-sm">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <p class="text-xs text-textMuted">노트북과 동일한 가족 코드로 접속하려면 아래 QR 코드를 카메라로 스캔하거나 링크를 복사해 핸드폰에서 열어주세요!</p>
+      <p class="text-xs text-slate-500">동일한 가족 코드로 접속하려면 아래 QR 코드를 카메라로 스캔하거나 초대 링크를 공유해 주세요!</p>
 
       <!-- QR Code Container -->
-      <div class="flex justify-center my-2 p-3 bg-pink-50/50 rounded-2xl border border-pink-100">
-        <div id="qrcode" class="p-2 bg-white rounded-xl shadow-xs"></div>
+      <div class="flex justify-center my-2 p-3 bg-slate-50 rounded-2xl border border-slate-200">
+        <div id="qrcode" class="p-2 bg-white rounded-xl shadow-2xs"></div>
       </div>
 
       <div class="space-y-2">
-        <button onclick="copyInviteLink()" class="w-full py-2.5 rounded-xl bg-pastelPink text-xs font-bold text-white shadow-sm hover:bg-pink-400 active:scale-95 transition-all flex items-center justify-center gap-2">
+        <button onclick="copyInviteLink()" class="w-full py-2.5 rounded-2xl bg-indigo-600 text-xs font-bold text-white shadow-2xs hover:bg-indigo-700 active:scale-95 transition-all flex items-center justify-center gap-2">
           <i class="fa-solid fa-copy"></i> 초대 링크 복사하기
         </button>
-        <button onclick="closeModal('shareModal')" class="w-full py-2 text-xs font-bold text-textMuted hover:underline">
+        <button onclick="closeModal('shareModal')" class="w-full py-2 text-xs font-bold text-slate-400 hover:underline">
           닫기
         </button>
       </div>
@@ -315,24 +337,24 @@
   </div>
 
   <!-- 3. Add Homework Task Modal -->
-  <div id="addTaskModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-pink-100 space-y-4">
+  <div id="addTaskModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-slate-200 space-y-4">
       <div class="flex justify-between items-center">
-        <h3 class="font-bold text-base text-textDark">📚 새 과제/문제집 추가</h3>
-        <button onclick="closeModal('addTaskModal')" class="text-textMuted hover:text-textDark text-sm">
+        <h3 class="font-bold text-base text-slate-900">📚 새 과제 추가</h3>
+        <button onclick="closeModal('addTaskModal')" class="text-slate-400 hover:text-slate-700 text-sm">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
       <div class="space-y-3">
         <div>
-          <label class="text-xs font-bold text-textMuted block mb-1">과제 제목</label>
-          <input type="text" id="newTaskTitle" placeholder="예: 쎈 수학 12p ~ 15p 풀기" class="w-full px-3 py-2 rounded-xl border border-pink-200 text-xs text-textDark focus:outline-none focus:ring-2 focus:ring-pastelPink">
+          <label class="text-xs font-bold text-slate-500 block mb-1">과제 제목</label>
+          <input type="text" id="newTaskTitle" placeholder="예: 쎈 수학 12p ~ 15p 풀기" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
         </div>
 
         <div>
-          <label class="text-xs font-bold text-textMuted block mb-1">과목 / 종류</label>
-          <select id="newTaskCategory" class="w-full px-3 py-2 rounded-xl border border-pink-200 text-xs text-textDark focus:outline-none focus:ring-2 focus:ring-pastelPink">
+          <label class="text-xs font-bold text-slate-500 block mb-1">과목 / 종류</label>
+          <select id="newTaskCategory" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
             <option value="📐 수학">📐 수학</option>
             <option value="🔤 영어">🔤 영어</option>
             <option value="🇰🇷 국어">🇰🇷 국어</option>
@@ -340,81 +362,104 @@
             <option value="🎨 기타/자율">🎨 기타/자율</option>
           </select>
         </div>
+
+        <div>
+          <label class="text-xs font-bold text-slate-500 block mb-1">🎯 담당자 (누가 해야 하나요?)</label>
+          <select id="newTaskAssignee" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="첫째">👧 첫째</option>
+            <option value="둘째">👱‍♀️ 둘째</option>
+            <option value="모두">👨‍👩‍👧‍👦 모두 함께</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-slate-500 block mb-1">📅 마감 기한 (선택)</label>
+          <input type="date" id="newTaskDueDate" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
       </div>
 
-      <button onclick="saveNewTask()" class="w-full py-2.5 rounded-xl bg-pastelPink text-xs font-bold text-white shadow-sm hover:bg-pink-400">
+      <button onclick="saveNewTask()" class="w-full py-2.5 rounded-xl bg-indigo-600 text-xs font-bold text-white shadow-2xs hover:bg-indigo-700">
         등록하기 ✨
       </button>
     </div>
   </div>
 
   <!-- 4. Add Schedule Modal -->
-  <div id="addScheduleModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-pink-100 space-y-4">
+  <div id="addScheduleModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-slate-200 space-y-4">
       <div class="flex justify-between items-center">
-        <h3 class="font-bold text-base text-textDark">📅 학원/과외 시간표 추가</h3>
-        <button onclick="closeModal('addScheduleModal')" class="text-textMuted hover:text-textDark text-sm">
+        <h3 class="font-bold text-base text-slate-900">📅 학원/과외 일정 추가</h3>
+        <button onclick="closeModal('addScheduleModal')" class="text-slate-400 hover:text-slate-700 text-sm">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
       <div class="space-y-3">
         <div>
-          <label class="text-xs font-bold text-textMuted block mb-1">시작 시간</label>
-          <input type="time" id="newScheduleTime" value="16:00" class="w-full px-3 py-2 rounded-xl border border-pink-200 text-xs text-textDark focus:outline-none focus:ring-2 focus:ring-pastelPink">
+          <label class="text-xs font-bold text-slate-500 block mb-1">시작 시간</label>
+          <input type="time" id="newScheduleTime" value="16:00" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
         </div>
 
         <div>
-          <label class="text-xs font-bold text-textMuted block mb-1">학원 / 과외 이름</label>
-          <input type="text" id="newScheduleTitle" placeholder="예: 영어 학원 (파닉스)" class="w-full px-3 py-2 rounded-xl border border-pink-200 text-xs text-textDark focus:outline-none focus:ring-2 focus:ring-pastelPink">
+          <label class="text-xs font-bold text-slate-500 block mb-1">🎯 대상 (누구의 학원인가요?)</label>
+          <select id="newScheduleAssignee" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="첫째">👧 첫째</option>
+            <option value="둘째">👱‍♀️ 둘째</option>
+            <option value="모두">👨‍👩‍👧‍👦 모두 함께</option>
+          </select>
         </div>
 
         <div>
-          <label class="text-xs font-bold text-textMuted block mb-1">장소 / 특이사항</label>
-          <input type="text" id="newScheduleLocation" placeholder="예: 3층 강의실 / 셔틀버스타기" class="w-full px-3 py-2 rounded-xl border border-pink-200 text-xs text-textDark focus:outline-none focus:ring-2 focus:ring-pastelPink">
+          <label class="text-xs font-bold text-slate-500 block mb-1">학원 / 과외 이름</label>
+          <input type="text" id="newScheduleTitle" placeholder="예: 영어 학원" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-slate-500 block mb-1">장소 / 특이사항</label>
+          <input type="text" id="newScheduleLocation" placeholder="예: 3층 강의실 / 셔틀버스타기" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
         </div>
       </div>
 
-      <button onclick="saveNewSchedule()" class="w-full py-2.5 rounded-xl bg-pastelMintDark text-xs font-bold text-white shadow-sm hover:opacity-90">
-        시간표 등록 ⏰
+      <button onclick="saveNewSchedule()" class="w-full py-2.5 rounded-xl bg-teal-700 text-xs font-bold text-white shadow-2xs hover:bg-teal-800">
+        일정 등록 ⏰
       </button>
     </div>
   </div>
 
   <!-- 5. Reward Shop & Roulette Modal -->
-  <div id="rewardShopModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-pink-100 space-y-4 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center sticky top-0 bg-white z-10 pt-1 pb-2 border-b border-pink-50">
+  <div id="rewardShopModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center sticky top-0 bg-white z-10 pt-1 pb-2 border-b border-slate-100">
         <div class="flex items-center gap-1.5">
           <span class="text-lg">🎁</span>
-          <h3 class="font-bold text-base text-textDark">보상 교환소 & 룰렛</h3>
+          <h3 class="font-bold text-base text-slate-900">보상 교환소 & 룰렛</h3>
         </div>
-        <button onclick="closeModal('rewardShopModal')" class="text-textMuted hover:text-textDark text-sm">
+        <button onclick="closeModal('rewardShopModal')" class="text-slate-400 hover:text-slate-700 text-sm">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
       <!-- Roulette Section -->
-      <div class="bg-gradient-to-b from-pastelPinkLight to-pastelYellowLight p-3 rounded-2xl border border-pink-100 text-center space-y-2">
+      <div class="bg-gradient-to-b from-indigo-50/60 to-amber-50/60 p-3 rounded-2xl border border-slate-200 text-center space-y-2">
         <div class="flex justify-between items-center text-xs font-bold">
-          <span class="text-textDark">🎯 행운의 룰렛 게임</span>
-          <span class="text-amber-600">1회 500P</span>
+          <span class="text-slate-800">🎯 행운의 룰렛</span>
+          <span class="text-amber-600 font-extrabold">1회 500P</span>
         </div>
 
         <!-- Roulette Wheel Visual -->
         <div class="relative w-40 h-40 mx-auto my-2">
           <!-- Pointer -->
-          <div class="absolute -top-2 left-1/2 -translate-x-1/2 z-20 text-red-500 text-lg drop-shadow-sm">
+          <div class="absolute -top-2 left-1/2 -translate-x-1/2 z-20 text-red-500 text-lg drop-shadow-xs">
             🔻
           </div>
-          <div id="rouletteWheel" class="wheel-spin w-full h-full rounded-full border-4 border-amber-300 shadow-md flex items-center justify-center font-bold text-[11px] overflow-hidden relative" style="background: conic-gradient(#FFB7B2 0deg 90deg, #FFE5A3 90deg 180deg, #B5EAD7 180deg 270deg, #E0C3FC 270deg 360deg);">
-            <div class="absolute inset-0 flex items-center justify-center text-textDark font-black">
-              <span class="bg-white/80 backdrop-blur-xs px-2 py-1 rounded-full shadow-xs">돌려라! 🎲</span>
+          <div id="rouletteWheel" class="wheel-spin w-full h-full rounded-full border-4 border-amber-300 shadow-md flex items-center justify-center font-bold text-[11px] overflow-hidden relative" style="background: conic-gradient(#818CF8 0deg 90deg, #FBBF24 90deg 180deg, #34D399 180deg 270deg, #C084FC 270deg 360deg);">
+            <div class="absolute inset-0 flex items-center justify-center text-slate-900 font-black">
+              <span class="bg-white/90 backdrop-blur-xs px-2.5 py-1 rounded-full shadow-2xs">돌려라! 🎲</span>
             </div>
           </div>
         </div>
 
-        <button id="spinBtn" onclick="playRoulette()" class="w-full py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-white font-bold text-xs shadow-sm active:scale-95 transition-all">
+        <button id="spinBtn" onclick="playRoulette()" class="w-full py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-xs shadow-2xs active:scale-95 transition-all">
           룰렛 돌리기 (500P 차감)
         </button>
       </div>
@@ -422,37 +467,47 @@
       <!-- Coupon Exchange List -->
       <div class="space-y-2">
         <div class="flex justify-between items-center">
-          <h4 class="font-bold text-xs text-textDark">🎟️ 보상 교환 쿠폰</h4>
-          <span class="text-[10px] text-textMuted">모은 포인트로 교환해요</span>
+          <h4 class="font-bold text-xs text-slate-900">🎟️ 보상 교환 쿠폰</h4>
+          <span class="text-[10px] text-slate-400">포인트로 교환해요</span>
         </div>
 
         <div class="space-y-2 text-xs">
-          <div class="p-2.5 rounded-xl border border-pink-100 bg-pink-50/30 flex justify-between items-center">
+          <div class="p-2.5 rounded-xl border border-slate-200 bg-slate-50/50 flex justify-between items-center">
             <div>
-              <div class="font-bold text-textDark">🎮 스마트폰/게임 30분 이용권</div>
-              <div class="text-[10px] text-amber-600 font-semibold">1,000 P</div>
+              <div class="font-bold text-slate-800">⏱️ 자유 시간 15분 연장권</div>
+              <div class="text-[10px] text-amber-600 font-bold">500 P</div>
             </div>
-            <button onclick="buyCoupon('스마트폰 30분 이용권', 1000)" class="bg-pastelPink text-white px-2.5 py-1.5 rounded-lg font-bold shadow-2xs hover:bg-pink-400 active:scale-95">
+            <button onclick="buyCoupon('자유 시간 15분 연장권', 500)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1.5 rounded-lg font-bold shadow-2xs active:scale-95">
               교환
             </button>
           </div>
 
-          <div class="p-2.5 rounded-xl border border-pink-100 bg-pink-50/30 flex justify-between items-center">
+          <div class="p-2.5 rounded-xl border border-slate-200 bg-slate-50/50 flex justify-between items-center">
             <div>
-              <div class="font-bold text-textDark">🍦 좋아하는 맛있는 간식 교환권</div>
-              <div class="text-[10px] text-amber-600 font-semibold">1,500 P</div>
+              <div class="font-bold text-slate-800">🎮 게임/스마트폰 30분 이용권</div>
+              <div class="text-[10px] text-amber-600 font-bold">1,000 P</div>
             </div>
-            <button onclick="buyCoupon('간식 교환권', 1500)" class="bg-pastelPink text-white px-2.5 py-1.5 rounded-lg font-bold shadow-2xs hover:bg-pink-400 active:scale-95">
+            <button onclick="buyCoupon('스마트폰 30분 이용권', 1000)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1.5 rounded-lg font-bold shadow-2xs active:scale-95">
               교환
             </button>
           </div>
 
-          <div class="p-2.5 rounded-xl border border-pink-100 bg-pink-50/30 flex justify-between items-center">
+          <div class="p-2.5 rounded-xl border border-slate-200 bg-slate-50/50 flex justify-between items-center">
             <div>
-              <div class="font-bold text-textDark">🌙 주말 늦게 자기 쿠폰 (30분)</div>
-              <div class="text-[10px] text-amber-600 font-semibold font-semibold">2,000 P</div>
+              <div class="font-bold text-slate-800">🍦 맛있는 간식 교환권</div>
+              <div class="text-[10px] text-amber-600 font-bold">1,500 P</div>
             </div>
-            <button onclick="buyCoupon('늦게 자기 쿠폰', 2000)" class="bg-pastelPink text-white px-2.5 py-1.5 rounded-lg font-bold shadow-2xs hover:bg-pink-400 active:scale-95">
+            <button onclick="buyCoupon('간식 교환권', 1500)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1.5 rounded-lg font-bold shadow-2xs active:scale-95">
+              교환
+            </button>
+          </div>
+
+          <div class="p-2.5 rounded-xl border border-slate-200 bg-slate-50/50 flex justify-between items-center">
+            <div>
+              <div class="font-bold text-slate-800">🌙 주말 취침시간 30분 연장권</div>
+              <div class="text-[10px] text-amber-600 font-bold">2,000 P</div>
+            </div>
+            <button onclick="buyCoupon('주말 취침시간 연장권', 2000)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1.5 rounded-lg font-bold shadow-2xs active:scale-95">
               교환
             </button>
           </div>
@@ -460,8 +515,8 @@
       </div>
 
       <!-- Claimed Coupons Inventory -->
-      <div class="space-y-1.5 pt-2 border-t border-pink-100">
-        <h4 class="font-bold text-xs text-textDark">🎫 내 쿠폰함</h4>
+      <div class="space-y-1.5 pt-2 border-t border-slate-100">
+        <h4 class="font-bold text-xs text-slate-900">🎫 내 쿠폰함</h4>
         <div id="couponInventory" class="space-y-1">
           <!-- Dynamic inventory -->
         </div>
@@ -501,13 +556,14 @@
     // Global App State
     window.state = {
       role: 'child_1', // 'child_1', 'child_2', 'parent_mom', 'parent_dad'
-      roleName: '첫째 (민우)',
+      roleName: '첫째',
       familyCode: localStorage.getItem('fm_family_code') || 'HAPPY-FAMILY-01',
       points: 0,
       stickers: 0,
       tasks: [],
       schedules: [],
       coupons: [],
+      history: [],
       lastUpdated: 0
     };
 
@@ -515,6 +571,60 @@
     let auth = null;
     let unsubscribeDoc = null;
     let mqttClient = null;
+
+    // Helper: Role Icon Getter
+    window.getRoleIcon = function(role) {
+      if (role === 'child_1') return '👧';
+      if (role === 'child_2') return '👱‍♀️';
+      if (role === 'parent_mom') return '👩';
+      if (role === 'parent_dad') return '👨';
+      return '👤';
+    };
+
+    // Helper: Format Due Date Badge & D-Day Status
+    window.getDueDateBadge = function(dueDateStr) {
+      if (!dueDateStr) return '';
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const target = new Date(dueDateStr);
+      target.setHours(0, 0, 0, 0);
+      
+      const diffDays = Math.round((target - today) / (1000 * 60 * 60 * 24));
+
+      if (diffDays < 0) {
+        return `<span class="text-[9px] bg-red-50 text-red-600 border border-red-200 px-1.5 py-0.2 rounded-md font-bold">⚠️ ${Math.abs(diffDays)}일 지남 (${dueDateStr.slice(5)})</span>`;
+      } else if (diffDays === 0) {
+        return `<span class="text-[9px] bg-rose-500 text-white px-1.5 py-0.2 rounded-md font-bold animate-pulse">🔥 오늘 마감</span>`;
+      } else if (diffDays === 1) {
+        return `<span class="text-[9px] bg-amber-50 text-amber-700 border border-amber-300 px-1.5 py-0.2 rounded-md font-bold">⏳ 내일 마감</span>`;
+      } else {
+        return `<span class="text-[9px] bg-slate-100 text-slate-600 border border-slate-200 px-1.5 py-0.2 rounded-md font-medium">📅 D-${diffDays} (${dueDateStr.slice(5)})</span>`;
+      }
+    };
+
+    // Helper: Check if current user is allowed to modify task progress or status
+    window.canUserModifyTask = function(task) {
+      const taskAssignee = task ? (task.assignee || '첫째') : '첫째';
+      if (window.state.role.startsWith('parent')) return true;
+      if (taskAssignee === '모두') return true;
+      if (taskAssignee === window.state.roleName) return true;
+      return false;
+    };
+
+    // Helper: Record Activity Log
+    window.addHistoryLog = function(actionText) {
+      const nowTime = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+      const log = {
+        id: 'log-' + Date.now(),
+        actor: window.state.roleName,
+        icon: getRoleIcon(window.state.role),
+        text: actionText,
+        time: nowTime
+      };
+      if (!window.state.history) window.state.history = [];
+      window.state.history.unshift(log);
+      if (window.state.history.length > 40) window.state.history.pop();
+    };
 
     // Real-Time Cross-Device MQTT Synchronization Setup
     function initMQTTRealtimeSync() {
@@ -537,22 +647,22 @@
         mqttClient.on('message', (topic, message) => {
           try {
             const remoteData = JSON.parse(message.toString());
-            // Avoid looping own messages and process newer updates
             if (remoteData && remoteData.senderId !== clientId && remoteData.lastUpdated > window.state.lastUpdated) {
               window.state.points = remoteData.points ?? window.state.points;
               window.state.stickers = remoteData.stickers ?? window.state.stickers;
               window.state.tasks = remoteData.tasks || window.state.tasks;
               window.state.schedules = remoteData.schedules || window.state.schedules;
               window.state.coupons = remoteData.coupons || window.state.coupons;
+              window.state.history = remoteData.history || window.state.history;
               window.state.lastUpdated = remoteData.lastUpdated;
 
-              // Save to local backup and re-render
               localStorage.setItem(`fm_data_${window.state.familyCode}`, JSON.stringify({
                 points: window.state.points,
                 stickers: window.state.stickers,
                 tasks: window.state.tasks,
                 schedules: window.state.schedules,
-                coupons: window.state.coupons
+                coupons: window.state.coupons,
+                history: window.state.history
               }));
 
               window.renderAll();
@@ -581,7 +691,7 @@
     // Toast Notification helper
     window.showToast = function(msg, icon = '✨') {
       const toast = document.createElement('div');
-      toast.className = 'bg-textDark text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 border border-pink-200/20 transform transition-all duration-300 opacity-0 translate-y-2 pointer-events-auto';
+      toast.className = 'bg-slate-900 text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 border border-slate-700/50 transform transition-all duration-300 opacity-0 translate-y-2 pointer-events-auto';
       toast.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
       const container = document.getElementById('toastContainer');
       container.appendChild(toast);
@@ -603,7 +713,6 @@
         auth = getAuth(app);
         db = getFirestore(app);
 
-        // Auth handling
         if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
           await signInWithCustomToken(auth, __initial_auth_token);
         } else {
@@ -625,7 +734,6 @@
 
       if (unsubscribeDoc) unsubscribeDoc();
 
-      // Rule 1 Compliant Path: /artifacts/{appId}/public/data/familyRooms/{roomCode}
       const roomRef = doc(db, 'artifacts', appId, 'public', 'data', 'family_rooms', roomCode);
 
       updateSyncStatus(`코드 [${roomCode}] 동기화 중...`, true);
@@ -638,10 +746,10 @@
           window.state.tasks = data.tasks || [];
           window.state.schedules = data.schedules || [];
           window.state.coupons = data.coupons || [];
+          window.state.history = data.history || [];
           renderAll();
           updateSyncStatus(`가족 연동 중: ${roomCode} 🟢`, false);
         } else {
-          // Initialize new family room document
           seedInitialData();
         }
       }, (err) => {
@@ -651,16 +759,29 @@
       });
     }
 
-    // Seed default initial data for a brand new family code
+    // Seed default initial data
     async function seedInitialData() {
+      const todayStr = new Date().toISOString().split('T')[0];
       const initialTasks = [
-        { id: 'task-1', title: '📐 수학 문제집 3장 풀기', category: '📐 수학', status: 'none', requestedBy: '' },
-        { id: 'task-2', title: '🔤 영어 단어 20개 암기', category: '🔤 영어', status: 'none', requestedBy: '' }
+        { id: 'task-1', title: '📐 수학 문제집 3장 풀기', category: '📐 수학', assignee: '첫째', dueDate: todayStr, progress: 0, status: 'none', createdBy: '엄마', updatedBy: '엄마' },
+        { id: 'task-2', title: '🔤 영어 단어 20개 암기', category: '🔤 영어', assignee: '둘째', dueDate: '', progress: 25, status: 'none', createdBy: '첫째', updatedBy: '첫째' },
+        { id: 'task-3', title: '🧹 자기 방 정리하기', category: '🎨 기타/자율', assignee: '모두', dueDate: '', progress: 0, memberProgress: { '첫째': 0, '둘째': 0 }, status: 'none', createdBy: '아빠', updatedBy: '아빠' }
       ];
       const initialSchedules = [
-        { id: 'sch-1', time: '15:30', title: '영어 학원 🔤', location: '지하철역 앞 건물 4층' },
-        { id: 'sch-2', time: '17:00', title: '수학 과외 📐', location: '우리집 거실' }
+        { id: 'sch-1', time: '15:30', title: '영어 학원 🔤', location: '지하철역 앞 건물 4층', assignee: '첫째', createdBy: '엄마' },
+        { id: 'sch-2', time: '17:00', title: '수학 과외 📐', location: '우리집 거실', assignee: '둘째', createdBy: '아빠' }
       ];
+      window.state.tasks = initialTasks;
+      window.state.schedules = initialSchedules;
+      window.state.points = 0;
+      window.state.stickers = 0;
+      window.state.coupons = [];
+      window.state.history = [
+        { id: 'log-init', actor: '매니저', icon: '🎀', text: '우리집 칭찬매니저 공간이 설정되었습니다!', time: '방금' }
+      ];
+      await window.saveStateToRemote();
+    }
+
     // Save state to Firestore, MQTT Broadcast & LocalStorage
     window.saveStateToRemote = async function() {
       const now = Date.now();
@@ -672,13 +793,12 @@
         tasks: window.state.tasks,
         schedules: window.state.schedules,
         coupons: window.state.coupons,
+        history: window.state.history || [],
         lastUpdated: now
       };
 
-      // 1. Local Backup
       localStorage.setItem(`fm_data_${window.state.familyCode}`, JSON.stringify(payload));
 
-      // 2. Broadcast via MQTT WebSocket (Instant cross-device sync)
       if (mqttClient && mqttClient.connected) {
         const topic = `family_manager_v2/${window.state.familyCode}`;
         mqttClient.publish(topic, JSON.stringify({
@@ -687,7 +807,6 @@
         }), { qos: 1, retain: true });
       }
 
-      // 3. Save to Firestore if available
       if (!db || !auth || !auth.currentUser) return;
       try {
         const roomRef = doc(db, 'artifacts', appId, 'public', 'data', 'family_rooms', window.state.familyCode);
@@ -709,6 +828,7 @@
         window.state.tasks = parsed.tasks || [];
         window.state.schedules = parsed.schedules || [];
         window.state.coupons = parsed.coupons || [];
+        window.state.history = parsed.history || [];
       } else {
         seedInitialData();
       }
@@ -719,9 +839,9 @@
       const el = document.getElementById('syncStatusText');
       if (!el) return;
       if (isLoading) {
-        el.innerHTML = `<i class="fa-solid fa-rotate text-pink-400 animate-spin mr-1"></i> ${text}`;
+        el.innerHTML = `<i class="fa-solid fa-rotate text-indigo-500 animate-spin mr-1"></i> ${text}`;
       } else {
-        el.innerHTML = `<i class="fa-solid fa-cloud text-pastelMintDark mr-1"></i> ${text}`;
+        el.innerHTML = `<i class="fa-solid fa-cloud text-indigo-600 mr-1"></i> ${text}`;
       }
       document.getElementById('familyRoomDisplay').innerText = `가족 코드: ${window.state.familyCode}`;
     }
@@ -732,385 +852,746 @@
       document.getElementById('pointDisplay').innerText = window.state.points.toLocaleString();
       document.getElementById('stickerCount').innerText = `(${window.state.stickers}개)`;
 
-      // Sticker grid (Render up to 10 max slots)
-      const stickerGrid = document.getElementById('stickerGrid');
-      stickerGrid.innerHTML = '';
-      const totalSlots = Math.max(10, window.state.stickers);
-      for (let i = 0; i < totalSlots; i++) {
-        const hasSticker = i < window.state.stickers;
-        stickerGrid.innerHTML += `
-          <div class="h-8 rounded-xl ${hasSticker ? 'bg-amber-300 border-2 border-amber-400 text-amber-800 shadow-xs scale-100' : 'bg-white/60 border border-dashed border-pink-200 text-pink-200'} flex items-center justify-center text-sm font-bold transition-all">
-            ${hasSticker ? '🌟' : (i + 1)}
-          </div>
-        `;
-      }
-
-      // 2. Schedule Render (Sorted by time)
-      const scheduleList = document.getElementById('scheduleList');
-      scheduleList.innerHTML = '';
-      const sortedSchedules = [...window.state.schedules].sort((a,b) => a.time.localeCompare(b.time));
-
-      if (sortedSchedules.length === 0) {
-        scheduleList.innerHTML = `<div class="text-center py-6 text-xs text-textMuted bg-pink-50/50 rounded-2xl border border-dashed border-pink-200">등록된 학원/과외 일정이 없어요 🎈</div>`;
-      } else {
-        sortedSchedules.forEach(item => {
-          scheduleList.innerHTML += `
-            <div class="p-3.5 bg-gradient-to-r from-pastelMint/20 to-pastelBlueLight rounded-2xl border border-pastelMintDark/20 shadow-xs flex justify-between items-center">
-              <div class="flex items-center gap-3">
-                <div class="bg-pastelMintDark/20 text-pastelMintDark font-black px-2.5 py-1 rounded-xl text-xs flex flex-col items-center">
-                  <span>⏰</span>
-                  <span>${item.time}</span>
-                </div>
-                <div>
-                  <h4 class="font-bold text-xs text-textDark">${item.title}</h4>
-                  ${item.location ? `<p class="text-[10px] text-textMuted mt-0.5"><i class="fa-solid fa-location-dot text-pink-400 mr-1"></i>${item.location}</p>` : ''}
-                </div>
-              </div>
-              ${window.state.role.startsWith('parent') ? `
-                <button onclick="deleteSchedule('${item.id}')" class="text-pink-300 hover:text-red-400 px-2 py-1 text-xs">
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-              ` : ''}
-            </div>
-          `;
-        });
-      }
-
-      // 3. Tasks Render
+      // 2. Tasks Render
       const taskList = document.getElementById('taskList');
       taskList.innerHTML = '';
-      const tasks = window.state.tasks;
+      const tasks = window.state.tasks || [];
       document.getElementById('taskBadgeCount').innerText = tasks.length;
 
       if (tasks.length === 0) {
-        taskList.innerHTML = `<div class="text-center py-6 text-xs text-textMuted bg-pink-50/50 rounded-2xl border border-dashed border-pink-200">오늘 완료해야 할 과제가 없어요 🎈</div>`;
+        taskList.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 bg-white rounded-2xl border border-dashed border-slate-200">오늘 완료해야 할 과제가 없어요 🎈</div>`;
       } else {
-        tasks.forEach(task => {
-          let actionUI = '';
+        const currentRoleName = window.state.roleName;
+        const sortedTasks = [...tasks].sort((a, b) => {
+          const aAssignee = a.assignee || '첫째';
+          const bAssignee = b.assignee || '첫째';
 
-          if (task.status === 'none') {
-            if (window.state.role.startsWith('child')) {
-              actionUI = `<button onclick="requestTaskApproval('${task.id}')" class="bg-pastelPink text-white px-3 py-1.5 rounded-xl font-bold text-xs shadow-2xs hover:bg-pink-400 active:scale-95 transition-all">
-                완료 신청 ✋
-              </button>`;
-            } else {
-              actionUI = `<span class="text-[11px] text-amber-600 bg-amber-50 px-2.5 py-1 rounded-lg font-bold border border-amber-200">진행 중</span>`;
-            }
+          const aIsMine = (aAssignee === currentRoleName || aAssignee === '모두');
+          const bIsMine = (bAssignee === currentRoleName || bAssignee === '모두');
+
+          if (aIsMine && !bIsMine) return -1;
+          if (!aIsMine && bIsMine) return 1;
+
+          if (aAssignee === currentRoleName && bAssignee !== currentRoleName) return -1;
+          if (aAssignee !== currentRoleName && bAssignee === currentRoleName) return 1;
+
+          const aDone = (a.progress >= 100 || a.status === 'approved');
+          const bDone = (b.progress >= 100 || b.status === 'approved');
+          if (!aDone && bDone) return -1;
+          if (aDone && !bDone) return 1;
+
+          return 0;
+        });
+
+        sortedTasks.forEach(task => {
+          const taskAssignee = task.assignee || '첫째';
+          const isGroupTask = (taskAssignee === '모두');
+          
+          if (isGroupTask && !task.memberProgress) {
+            task.memberProgress = { '첫째': task.progress || 0, '둘째': task.progress || 0 };
+          }
+
+          const progress = isGroupTask 
+            ? Math.floor(((task.memberProgress['첫째'] || 0) + (task.memberProgress['둘째'] || 0)) / 2)
+            : (task.progress || (task.status === 'approved' ? 100 : 0));
+
+          const isMine = (taskAssignee === window.state.roleName || isGroupTask);
+
+          const assigneeBadge = `<span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-100 text-slate-700 border border-slate-200 inline-flex items-center gap-1"><span>${taskAssignee === '첫째' ? '👧' : taskAssignee === '둘째' ? '👱‍♀️' : taskAssignee === '모두' ? '👨‍👩‍👧‍👦' : '👤'}</span><span>${taskAssignee}</span></span>`;
+          const dueDateBadge = window.getDueDateBadge(task.dueDate);
+
+          let actionUI = '';
+          const isAllowed = window.canUserModifyTask(task);
+
+          if (task.status === 'approved' || progress >= 100) {
+            actionUI = `<span class="text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-xl font-bold border border-emerald-200">🎉 완료됨 (+500P)</span>`;
+          } else if (!isAllowed) {
+            actionUI = `<span class="text-[11px] text-slate-400 bg-slate-100 px-2.5 py-1 rounded-xl font-medium border border-slate-200/80">🔒 ${taskAssignee} 담당 과제</span>`;
           } else if (task.status === 'pending') {
             if (window.state.role.startsWith('parent')) {
-              actionUI = `<button onclick="approveTask('${task.id}')" class="bg-gradient-to-r from-emerald-400 to-teal-500 text-white px-3 py-1.5 rounded-xl font-bold text-xs shadow-sm hover:opacity-90 active:scale-95 badge-bounce">
-                👍 용돈(+500P) 승인
-              </button>`;
+              actionUI = `
+                <div class="flex items-center gap-1">
+                  <button onclick="approveTask('${task.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl font-bold text-xs shadow-2xs active:scale-95 badge-bounce">
+                    👍 최종 승인
+                  </button>
+                </div>
+              `;
             } else {
-              actionUI = `<span class="text-[11px] text-pink-600 bg-pink-100 px-2.5 py-1 rounded-lg font-bold animate-pulse">부모님 승인 대기중 💌</span>`;
+              actionUI = `<span class="text-[11px] text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-xl font-bold border border-indigo-100 animate-pulse">${progress}% 승인 요청중 💌</span>`;
             }
-          } else if (task.status === 'approved') {
-            actionUI = `<span class="text-[11px] text-teal-700 bg-teal-50 px-2.5 py-1 rounded-lg font-bold border border-teal-200">🎉 승인완료 (+500P)</span>`;
+          } else {
+            if (window.state.role.startsWith('parent')) {
+              actionUI = `
+                <div class="flex items-center gap-1 flex-wrap justify-end">
+                  ${isGroupTask ? `
+                    <button onclick="stepMemberTaskProgress('${task.id}', '첫째')" class="bg-indigo-600 text-white px-2 py-1 rounded-lg text-[10px] font-bold">👧 첫째+25%</button>
+                    <button onclick="stepMemberTaskProgress('${task.id}', '둘째')" class="bg-purple-600 text-white px-2 py-1 rounded-lg text-[10px] font-bold">👱‍♀️ 둘째+25%</button>
+                    <button onclick="stepMemberTaskProgress('${task.id}', '모두')" class="bg-emerald-600 text-white px-2 py-1 rounded-lg text-[10px] font-bold">👨‍👩‍👧‍👦 단체+25%</button>
+                  ` : `
+                    <span class="text-[11px] text-slate-400 bg-slate-100 px-2.5 py-1 rounded-xl font-medium border border-slate-200/80">👶 자녀 수행 대기중</span>
+                  `}
+                </div>
+              `;
+            } else {
+              if (isGroupTask) {
+                const currentRole = window.state.roleName;
+                actionUI = `
+                  <div class="flex items-center gap-1.5 flex-wrap justify-end">
+                    <button onclick="stepMemberTaskProgress('${task.id}', '${currentRole}')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1.5 rounded-xl font-bold text-xs shadow-2xs active:scale-95 transition-all flex items-center gap-1">
+                      <span>내 달성도 +25%</span>
+                    </button>
+                    <button onclick="stepMemberTaskProgress('${task.id}', '모두')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1.5 rounded-xl font-bold text-xs shadow-2xs active:scale-95 transition-all flex items-center gap-1">
+                      <span>👨‍👩‍👧‍👦 단체 +25%</span>
+                    </button>
+                  </div>
+                `;
+              } else {
+                actionUI = `
+                  <div class="flex items-center gap-1">
+                    <button onclick="stepTaskProgress('${task.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1.5 rounded-xl font-bold text-xs shadow-2xs active:scale-95 transition-all flex items-center gap-1">
+                      <span>+25%</span>
+                      <i class="fa-solid fa-angles-right text-[10px]"></i>
+                    </button>
+                    ${progress > 0 ? `
+                      <button onclick="requestTaskApproval('${task.id}')" class="bg-slate-900 hover:bg-slate-800 text-white px-2 py-1.5 rounded-xl font-bold text-[11px] active:scale-95">
+                        승인요청
+                      </button>
+                    ` : ''}
+                  </div>
+                `;
+              }
+            }
           }
 
           taskList.innerHTML += `
-            <div class="p-3 bg-white rounded-2xl border border-pink-100 shadow-xs flex justify-between items-center gap-2">
-              <div class="flex items-center gap-2.5">
-                <span class="text-base">${task.category.split(' ')[0]}</span>
-                <div>
-                  <h4 class="font-bold text-xs text-textDark ${task.status === 'approved' ? 'line-through text-textMuted' : ''}">${task.title}</h4>
-                  <span class="text-[10px] text-textMuted">${task.category}</span>
+            <div class="p-3.5 bg-white rounded-2xl border ${isMine ? 'border-indigo-200 ring-1 ring-indigo-50' : 'border-slate-200/80'} shadow-2xs space-y-2.5 transition-all">
+              <div class="flex justify-between items-start gap-2">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-base">${task.category.split(' ')[0]}</span>
+                  <div>
+                    <div class="flex items-center flex-wrap gap-1.5 mb-1">
+                      ${assigneeBadge}
+                      ${dueDateBadge}
+                      ${isMine ? `<span class="text-[9px] bg-indigo-50 text-indigo-600 border border-indigo-200 px-1 rounded font-bold">${isGroupTask ? '단체 과제' : '내 과제'}</span>` : ''}
+                    </div>
+                    <h4 class="font-bold text-xs text-slate-800 ${progress >= 100 ? 'line-through text-slate-400' : ''}">${task.title}</h4>
+                    <div class="flex items-center gap-1.5 mt-1">
+                      <span class="text-[10px] text-slate-400 font-medium">${task.category}</span>
+                      <span class="text-[9px] bg-slate-100 text-slate-500 border border-slate-200 px-1.5 py-0.2 rounded-md font-medium">등록: ${task.createdBy || '가족'}</span>
+                      ${task.updatedBy ? `<span class="text-[9px] bg-indigo-50 text-indigo-600 border border-indigo-100 px-1.5 py-0.2 rounded-md font-medium">최근변경: ${task.updatedBy}</span>` : ''}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="flex items-center gap-1.5">
-                ${actionUI}
                 ${window.state.role.startsWith('parent') ? `
-                  <button onclick="deleteTask('${task.id}')" class="text-pink-200 hover:text-red-400 p-1 text-xs">
-                    <i class="fa-solid fa-xmark"></i>
+                  <button onclick="deleteTask('${task.id}')" class="text-slate-300 hover:text-red-500 p-1.5 text-xs transition-colors rounded-lg hover:bg-red-50" title="과제 삭제">
+                    <i class="fa-solid fa-trash-can"></i>
                   </button>
                 ` : ''}
               </div>
+
+              <!-- Progress Bar Section -->
+              <div class="space-y-1.5 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                ${isGroupTask ? `
+                  <div class="space-y-1.5">
+                    <div>
+                      <div class="flex justify-between items-center text-[10px] font-bold mb-0.5">
+                        <span class="text-slate-600">👧 첫째 달성도</span>
+                        <span class="text-indigo-600">${task.memberProgress['첫째'] || 0}%</span>
+                      </div>
+                      <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                        <div class="bg-indigo-500 h-full rounded-full transition-all duration-300" style="width: ${task.memberProgress['첫째'] || 0}%"></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="flex justify-between items-center text-[10px] font-bold mb-0.5">
+                        <span class="text-slate-600">👱‍♀️ 둘째 달성도</span>
+                        <span class="text-purple-600">${task.memberProgress['둘째'] || 0}%</span>
+                      </div>
+                      <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                        <div class="bg-purple-500 h-full rounded-full transition-all duration-300" style="width: ${task.memberProgress['둘째'] || 0}%"></div>
+                      </div>
+                    </div>
+                  </div>
+                ` : `
+                  <div class="flex justify-between items-center text-[10px] font-bold">
+                    <span class="text-slate-400">진행률</span>
+                    <span class="text-indigo-600">${progress}% 완료</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-full rounded-full transition-all duration-300" style="width: ${progress}%"></div>
+                  </div>
+                `}
+              </div>
+
+              <div class="flex justify-end items-center pt-0.5">
+                ${actionUI}
+              </div>
             </div>
           `;
         });
       }
 
-      // 4. Coupon Inventory Render
-      const inventory = document.getElementById('couponInventory');
-      inventory.innerHTML = '';
-      if (window.state.coupons.length === 0) {
-        inventory.innerHTML = `<div class="text-[11px] text-textMuted text-center py-2">보관된 교환 쿠폰이 없어요</div>`;
-      } else {
-        window.state.coupons.forEach((cp, idx) => {
-          inventory.innerHTML += `
-            <div class="p-2 rounded-xl bg-pastelPurple/30 border border-pastelPurple flex justify-between items-center">
-              <span class="font-bold text-xs text-textDark">🎫 ${cp.title}</span>
-              <button onclick="useCoupon(${idx})" class="bg-white hover:bg-red-50 text-red-500 font-bold px-2 py-1 rounded-lg text-[10px] border border-red-200">
-                사용하기
-              </button>
-            </div>
-          `;
-        });
+      renderStickers();
+      renderSchedules();
+      renderHistory();
+      renderCoupons();
+    };
+
+    // Render 10 Sticker Slots
+    function renderStickers() {
+      const stickerGrid = document.getElementById('stickerGrid');
+      if (!stickerGrid) return;
+      stickerGrid.innerHTML = '';
+      const totalStickers = window.state.stickers || 0;
+      for (let i = 1; i <= 10; i++) {
+        const isEarned = i <= (totalStickers % 10) || (totalStickers > 0 && totalStickers % 10 === 0 && i <= 10);
+        stickerGrid.innerHTML += `
+          <div class="aspect-square rounded-xl border ${isEarned ? 'bg-amber-100 border-amber-300' : 'bg-slate-100 border-dashed border-slate-300'} flex items-center justify-center text-lg shadow-2xs">
+            ${isEarned ? '🌟' : '<span class="text-xs text-slate-300 font-bold">' + i + '</span>'}
+          </div>
+        `;
       }
-    };
+    }
 
-    // Task Approval Actions
-    window.requestTaskApproval = function(taskId) {
-      const task = window.state.tasks.find(t => t.id === taskId);
-      if (task) {
-        task.status = 'pending';
-        window.saveStateToRemote();
-        window.showToast("부모님께 완료 승인을 요청했어요! 💌", "📩");
-      }
-    };
+    // Render Schedules
+    function renderSchedules() {
+      const scheduleList = document.getElementById('scheduleList');
+      if (!scheduleList) return;
+      scheduleList.innerHTML = '';
+      const schedules = window.state.schedules || [];
 
-    window.approveTask = function(taskId) {
-      const task = window.state.tasks.find(t => t.id === taskId);
-      if (task && task.status !== 'approved') {
-        task.status = 'approved';
-        window.state.points += 500;
-        window.state.stickers += 1;
-        window.saveStateToRemote();
-
-        // Confetti celebration effect!
-        try {
-          confetti({
-            particleCount: 50,
-            spread: 60,
-            origin: { y: 0.7 }
-          });
-        } catch(e){}
-
-        window.showToast("칭찬 완료! 자녀에게 500P와 🌟 스티커를 안겨주었습니다!", "🎉");
-      }
-    };
-
-    window.deleteTask = function(taskId) {
-      window.state.tasks = window.state.tasks.filter(t => t.id !== taskId);
-      window.saveStateToRemote();
-      window.showToast("과제가 삭제되었습니다.");
-    };
-
-    window.saveNewTask = function() {
-      const title = document.getElementById('newTaskTitle').value.trim();
-      const category = document.getElementById('newTaskCategory').value;
-
-      if (!title) {
-        window.showToast("과제 이름을 입력해주세요!", "⚠️");
+      if (schedules.length === 0) {
+        scheduleList.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 bg-white rounded-2xl border border-dashed border-slate-200">등록된 학원/과외 일정이 없습니다 ⏰</div>`;
         return;
       }
 
-      window.state.tasks.push({
+      const currentRoleName = window.state.roleName;
+      const sortedSchedules = [...schedules].sort((a, b) => {
+        const aAssignee = a.assignee || '첫째';
+        const bAssignee = b.assignee || '첫째';
+
+        const aIsMine = (aAssignee === currentRoleName || aAssignee === '모두');
+        const bIsMine = (bAssignee === currentRoleName || bAssignee === '모두');
+
+        if (aIsMine && !bIsMine) return -1;
+        if (!aIsMine && bIsMine) return 1;
+
+        return (a.time || '').localeCompare(b.time || '');
+      });
+
+      sortedSchedules.forEach(item => {
+        const itemAssignee = item.assignee || '첫째';
+        const isMine = (itemAssignee === window.state.roleName || itemAssignee === '모두');
+        const assigneeBadge = `<span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-100 text-slate-700 border border-slate-200 inline-flex items-center gap-1"><span>${itemAssignee === '첫째' ? '👧' : itemAssignee === '둘째' ? '👱‍♀️' : itemAssignee === '모두' ? '👨‍👩‍👧‍👦' : '👤'}</span><span>${itemAssignee}</span></span>`;
+
+        scheduleList.innerHTML += `
+          <div class="p-3 bg-white rounded-2xl border ${isMine ? 'border-teal-300 ring-1 ring-teal-100' : 'border-slate-200/80'} shadow-2xs flex justify-between items-center">
+            <div class="flex items-center gap-3">
+              <div class="bg-teal-50 text-teal-700 font-extrabold text-xs px-2.5 py-1.5 rounded-xl border border-teal-200 flex flex-col items-center justify-center">
+                <span>${item.time}</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5 mb-1">
+                  ${assigneeBadge}
+                  ${isMine ? `<span class="text-[9px] bg-teal-50 text-teal-700 border border-teal-200 px-1 rounded font-bold">내 일정</span>` : ''}
+                </div>
+                <h4 class="font-bold text-xs text-slate-800">${item.title}</h4>
+                <p class="text-[10px] text-slate-400">${item.location || '장소 미지정'} (등록: ${item.createdBy || '가족'})</p>
+              </div>
+            </div>
+            ${window.state.role.startsWith('parent') ? `
+              <button onclick="deleteSchedule('${item.id}')" class="text-slate-300 hover:text-red-500 p-1.5 text-xs transition-colors rounded-lg hover:bg-red-50" title="일정 삭제">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            ` : ''}
+          </div>
+        `;
+      });
+    }
+
+    // Render History Timeline
+    function renderHistory() {
+      const historyList = document.getElementById('historyList');
+      if (!historyList) return;
+      historyList.innerHTML = '';
+      const history = window.state.history || [];
+
+      if (history.length === 0) {
+        historyList.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 bg-white rounded-2xl border border-dashed border-slate-200">아직 활동 내역이 없습니다 📜</div>`;
+        return;
+      }
+
+      history.forEach(log => {
+        historyList.innerHTML += `
+          <div class="p-2.5 bg-white rounded-xl border border-slate-200/70 shadow-2xs flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-base">${log.icon || '💬'}</span>
+              <div>
+                <span class="font-bold text-slate-800">[${log.actor}]</span>
+                <span class="text-slate-600">${log.text}</span>
+              </div>
+            </div>
+            <span class="text-[10px] text-slate-400 shrink-0 ml-2">${log.time}</span>
+          </div>
+        `;
+      });
+    }
+
+    // Render Coupons
+    function renderCoupons() {
+      const container = document.getElementById('couponInventory');
+      if (!container) return;
+      container.innerHTML = '';
+      const coupons = window.state.coupons || [];
+
+      if (coupons.length === 0) {
+        container.innerHTML = `<p class="text-[11px] text-slate-400 text-center py-2">보관된 쿠폰이 없습니다</p>`;
+        return;
+      }
+
+      coupons.forEach(c => {
+        container.innerHTML += `
+          <div class="p-2 rounded-xl bg-amber-50 border border-amber-200 flex justify-between items-center text-xs">
+            <span class="font-bold text-slate-800">🎟️ ${c.title}</span>
+            <button onclick="useCoupon('${c.id}')" class="bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold px-2 py-1 rounded-lg">
+              사용하기
+            </button>
+          </div>
+        `;
+      });
+    }
+
+    // Task Creation Handler
+    window.saveNewTask = async function() {
+      const titleInput = document.getElementById('newTaskTitle');
+      const categoryInput = document.getElementById('newTaskCategory');
+      const assigneeInput = document.getElementById('newTaskAssignee');
+      const dueDateInput = document.getElementById('newTaskDueDate');
+
+      const title = titleInput ? titleInput.value.trim() : '';
+      const category = categoryInput ? categoryInput.value : '📐 수학';
+      const assignee = assigneeInput ? assigneeInput.value : '첫째';
+      const dueDate = dueDateInput ? dueDateInput.value : '';
+
+      if (!title) {
+        window.showToast('과제 제목을 입력해 주세요!', '⚠️');
+        return;
+      }
+
+      const newTask = {
         id: 'task-' + Date.now(),
         title,
         category,
-        status: 'none'
-      });
+        assignee,
+        dueDate,
+        progress: 0,
+        memberProgress: assignee === '모두' ? { '첫째': 0, '둘째': 0 } : null,
+        rewardedMembers: {},
+        status: 'none',
+        createdBy: window.state.roleName,
+        updatedBy: window.state.roleName
+      };
 
-      document.getElementById('newTaskTitle').value = '';
+      if (!window.state.tasks) window.state.tasks = [];
+      window.state.tasks.unshift(newTask);
+
+      const dueMsg = dueDate ? ` (~${dueDate})` : '';
+      addHistoryLog(`새 과제 '${title}' (${assignee} 담당${dueMsg}) 추가함`);
       closeModal('addTaskModal');
-      window.saveStateToRemote();
-      window.showToast("새 과제가 추가되었습니다 📚");
-    };
+      
+      titleInput.value = '';
+      if (dueDateInput) dueDateInput.value = '';
 
-    // Schedule Actions
-    window.saveNewSchedule = function() {
-      const time = document.getElementById('newScheduleTime').value;
-      const title = document.getElementById('newScheduleTitle').value.trim();
-      const location = document.getElementById('newScheduleLocation').value.trim();
-
-      if (!title || !time) {
-        window.showToast("시간과 이름을 모두 입력해주세요!", "⚠️");
-        return;
-      }
-
-      window.state.schedules.push({
-        id: 'sch-' + Date.now(),
-        time,
-        title,
-        location
-      });
-
-      document.getElementById('newScheduleTitle').value = '';
-      document.getElementById('newScheduleLocation').value = '';
-      closeModal('addScheduleModal');
-      window.saveStateToRemote();
-      window.showToast("학원 시간표가 등록되었습니다 ⏰");
-    };
-
-    window.deleteSchedule = function(schId) {
-      window.state.schedules = window.state.schedules.filter(s => s.id !== schId);
-      window.saveStateToRemote();
-      window.showToast("시간표가 삭제되었습니다.");
-    };
-
-    // Roulette & Rewards
-    let isSpinning = false;
-    window.playRoulette = function() {
-      if (isSpinning) return;
-      if (window.state.points < 500) {
-        window.showToast("포인트가 부족해요! (500P 필요)", "🪙");
-        return;
-      }
-
-      isSpinning = true;
-      window.state.points -= 500;
-      window.saveStateToRemote();
-
-      const wheel = document.getElementById('rouletteWheel');
-      const randomDeg = 3600 + Math.floor(Math.random() * 360);
-      wheel.style.transform = `rotate(${randomDeg}deg)`;
-
-      setTimeout(() => {
-        isSpinning = false;
-        const rewards = [
-          { title: "🎮 스마트폰 15분 더하기", bonus: 0 },
-          { title: "🍦 새콤달콤 아이스크림", bonus: 0 },
-          { title: "⭐ 대박! 1,000P 당첨", bonus: 1000 },
-          { title: "🍬 맛있는 젤리 쿠폰", bonus: 0 }
-        ];
-        const result = rewards[Math.floor(Math.random() * rewards.length)];
-
-        if (result.bonus > 0) {
-          window.state.points += result.bonus;
-        } else {
-          window.state.coupons.push({ title: result.title, date: new Date().toLocaleDateString() });
-        }
-
-        window.saveStateToRemote();
-        window.showToast(`🎉 룰렛 결과: [${result.title}] 당첨!`, "🎁");
-      }, 3500);
-    };
-
-    window.buyCoupon = function(title, cost) {
-      if (window.state.points < cost) {
-        window.showToast("포인트가 부족합니다!", "⚠️");
-        return;
-      }
-
-      window.state.points -= cost;
-      window.state.coupons.push({ title, date: new Date().toLocaleDateString() });
-      window.saveStateToRemote();
-      window.showToast(`[${title}] 교환 완료! 쿠폰함에서 확인하세요 🎟️`, "🎉");
-    };
-
-    window.useCoupon = function(index) {
-      window.state.coupons.splice(index, 1);
-      window.saveStateToRemote();
-      window.showToast("쿠폰을 사용했습니다! 부모님께 확인받으세요 👍", "🎟️");
-    };
-
-    // Role / Family Code Actions
-    window.setRole = function(role, roleName) {
-      window.state.role = role;
-      window.state.roleName = roleName;
-
-      document.getElementById('roleName').innerText = roleName;
-      if (role === 'child_1') {
-        document.getElementById('roleIcon').innerText = '👦';
-      } else if (role === 'child_2') {
-        document.getElementById('roleIcon').innerText = '👧';
-      } else if (role === 'parent_mom') {
-        document.getElementById('roleIcon').innerText = '👩';
-      } else {
-        document.getElementById('roleIcon').innerText = '👨';
-      }
-
-      closeModal('roleModal');
       window.renderAll();
-      window.showToast(`[${roleName}] 모드로 변경되었습니다`);
+      await window.saveStateToRemote();
+      window.showToast(`[${assignee}] 담당 과제가 추가되었습니다! ✨`);
     };
 
-    window.generateRandomSyncCode = function() {
-      const code = 'FAM-' + Math.floor(1000 + Math.random() * 9000);
-      document.getElementById('syncCodeInput').value = code;
-    };
-
-    window.applySyncCode = function() {
-      const input = document.getElementById('syncCodeInput').value.trim().toUpperCase();
-      if (!input) {
-        window.showToast("가족 코드를 입력해 주세요!", "⚠️");
-        return;
-      }
-
-      window.state.familyCode = input;
-      localStorage.setItem('fm_family_code', input);
-      closeModal('syncModal');
-
-      // Re-subscribe MQTT topic
-      if (mqttClient && mqttClient.connected) {
-        subscribeMqttTopic(input);
-      }
-      listenToFamilyRoom(input);
-      window.showToast(`가족 코드 [${input}] 로 연동합니다 🔗`);
-    };
-
-    // QR Code & Link Share Helpers
-    let qrCodeInstance = null;
-    window.openShareModal = function() {
-      const baseUrl = window.location.href.split('?')[0];
-      const inviteUrl = `${baseUrl}?code=${encodeURIComponent(window.state.familyCode)}`;
-
-      const qrContainer = document.getElementById('qrcode');
-      qrContainer.innerHTML = '';
-      qrCodeInstance = new QRCode(qrContainer, {
-        text: inviteUrl,
-        width: 140,
-        height: 140,
-        colorDark: "#4A3E3D",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.M
-      });
-
-      window.openModal('shareModal');
-    };
-
-    window.copyInviteLink = function() {
-      const baseUrl = window.location.href.split('?')[0];
-      const inviteUrl = `${baseUrl}?code=${encodeURIComponent(window.state.familyCode)}`;
-
-      const tempInput = document.createElement('input');
-      tempInput.value = inviteUrl;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-
-      window.showToast("초대 링크가 복사되었습니다! 카톡으로 공유해 주세요 📲", "📋");
-    };
-
-    // UI Helper Switch Tab
+    // Tab Navigation Handler
     window.switchTab = function(tabName) {
       const tasksTab = document.getElementById('tasksTab');
       const scheduleTab = document.getElementById('scheduleTab');
+      const historyTab = document.getElementById('historyTab');
+
       const tabTasksBtn = document.getElementById('tabTasksBtn');
       const tabScheduleBtn = document.getElementById('tabScheduleBtn');
+      const tabHistoryBtn = document.getElementById('tabHistoryBtn');
+
+      if (!tasksTab || !scheduleTab || !historyTab) return;
+
+      tasksTab.classList.add('hidden');
+      scheduleTab.classList.add('hidden');
+      historyTab.classList.add('hidden');
+
+      [tabTasksBtn, tabScheduleBtn, tabHistoryBtn].forEach(btn => {
+        if (btn) {
+          btn.className = 'flex-1 py-2 rounded-xl text-center transition-all text-slate-500 hover:text-slate-800 font-medium';
+        }
+      });
+
+      const activeClass = 'flex-1 py-2 rounded-xl text-center transition-all bg-white text-slate-900 shadow-2xs font-extrabold';
 
       if (tabName === 'tasks') {
         tasksTab.classList.remove('hidden');
-        scheduleTab.classList.add('hidden');
-        tabTasksBtn.className = 'flex-1 py-2 rounded-xl text-center transition-all bg-white text-pink-600 shadow-xs';
-        tabScheduleBtn.className = 'flex-1 py-2 rounded-xl text-center transition-all text-textMuted hover:text-textDark';
-      } else {
-        tasksTab.classList.add('hidden');
+        if (tabTasksBtn) tabTasksBtn.className = activeClass;
+      } else if (tabName === 'schedule') {
         scheduleTab.classList.remove('hidden');
-        tabScheduleBtn.className = 'flex-1 py-2 rounded-xl text-center transition-all bg-white text-pink-600 shadow-xs';
-        tabTasksBtn.className = 'flex-1 py-2 rounded-xl text-center transition-all text-textMuted hover:text-textDark';
+        if (tabScheduleBtn) tabScheduleBtn.className = activeClass;
+      } else if (tabName === 'history') {
+        historyTab.classList.remove('hidden');
+        if (tabHistoryBtn) tabHistoryBtn.className = activeClass;
       }
     };
 
-    // Global Modal helpers
-    window.openModal = function(id) { document.getElementById(id).classList.remove('hidden'); };
-    window.closeModal = function(id) { document.getElementById(id).classList.add('hidden'); };
-
-    window.openRoleModal = function() { openModal('roleModal'); };
-    window.openSyncModal = function() {
-      document.getElementById('syncCodeInput').value = window.state.familyCode;
-      openModal('syncModal');
+    // Generic Modal Control Helpers
+    window.openModal = function(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.classList.remove('hidden');
     };
-    window.openAddTaskModal = function() { openModal('addTaskModal'); };
-    window.openAddScheduleModal = function() { openModal('addScheduleModal'); };
-    window.openRewardShopModal = function() { openModal('rewardShopModal'); };
 
-    // Initialize App on DOM Load
-    window.addEventListener('DOMContentLoaded', () => {
-      initMQTTRealtimeSync();
+    window.closeModal = function(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.classList.add('hidden');
+    };
+
+    window.openRoleModal = () => window.openModal('roleModal');
+    window.openSyncModal = () => window.openModal('syncModal');
+    window.openAddTaskModal = () => window.openModal('addTaskModal');
+    window.openAddScheduleModal = () => window.openModal('addScheduleModal');
+    window.openRewardShopModal = () => window.openModal('rewardShopModal');
+
+    window.openShareModal = function() {
+      window.openModal('shareModal');
+      const qrContainer = document.getElementById('qrcode');
+      if (qrContainer) {
+        qrContainer.innerHTML = '';
+        const shareUrl = `${window.location.origin}${window.location.pathname}?code=${encodeURIComponent(window.state.familyCode)}`;
+        if (typeof QRCode !== 'undefined') {
+          new QRCode(qrContainer, {
+            text: shareUrl,
+            width: 128,
+            height: 128,
+            colorDark : "#0f172a",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+          });
+        }
+      }
+    };
+
+    window.setRole = async function(roleKey, roleName) {
+      window.state.role = roleKey;
+      window.state.roleName = roleName;
+
+      const iconEl = document.getElementById('roleIcon');
+      const nameEl = document.getElementById('roleName');
+      if (iconEl) iconEl.innerText = window.getRoleIcon(roleKey);
+      if (nameEl) nameEl.innerText = roleName;
+
+      addHistoryLog(`프로필을 '${roleName}'(으)로 전환했습니다`);
+      closeModal('roleModal');
+      window.renderAll();
+      window.showToast(`[${roleName}] 모드로 전환되었습니다! 👋`);
+    };
+
+    window.generateRandomSyncCode = function() {
+      const randomCode = 'HAPPY-HOME-' + Math.floor(100 + Math.random() * 900);
+      const input = document.getElementById('syncCodeInput');
+      if (input) input.value = randomCode;
+    };
+
+    window.applySyncCode = async function() {
+      const input = document.getElementById('syncCodeInput');
+      const newCode = input ? input.value.trim().toUpperCase() : '';
+      if (!newCode) {
+        window.showToast('가족 코드를 입력해 주세요!', '⚠️');
+        return;
+      }
+
+      window.state.familyCode = newCode;
+      localStorage.setItem('fm_family_code', newCode);
+      closeModal('syncModal');
+
+      if (typeof subscribeMqttTopic === 'function') {
+        subscribeMqttTopic(newCode);
+      }
+      if (typeof listenToFamilyRoom === 'function') {
+        listenToFamilyRoom(newCode);
+      }
+
+      window.showToast(`가족 연동 코드가 [${newCode}]로 설정되었습니다! 🔗`);
+    };
+
+    window.copyInviteLink = function() {
+      const shareUrl = `${window.location.origin}${window.location.pathname}?code=${encodeURIComponent(window.state.familyCode)}`;
+      const dummy = document.createElement('textarea');
+      document.body.appendChild(dummy);
+      dummy.value = shareUrl;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+
+      window.showToast('초대 링크가 클립보드에 복사되었습니다! 📋');
+    };
+
+    window.saveNewSchedule = async function() {
+      const timeInput = document.getElementById('newScheduleTime');
+      const assigneeInput = document.getElementById('newScheduleAssignee');
+      const titleInput = document.getElementById('newScheduleTitle');
+      const locationInput = document.getElementById('newScheduleLocation');
+
+      const time = timeInput ? timeInput.value : '16:00';
+      const assignee = assigneeInput ? assigneeInput.value : '첫째';
+      const title = titleInput ? titleInput.value.trim() : '';
+      const location = locationInput ? locationInput.value.trim() : '';
+
+      if (!title) {
+        window.showToast('학원/과외 이름을 입력해 주세요!', '⚠️');
+        return;
+      }
+
+      const newSchedule = {
+        id: 'sch-' + Date.now(),
+        time,
+        assignee,
+        title,
+        location,
+        createdBy: window.state.roleName
+      };
+
+      if (!window.state.schedules) window.state.schedules = [];
+      window.state.schedules.push(newSchedule);
+
+      addHistoryLog(`새 일정 '${title}' (${time}, ${assignee}) 추가함`);
+      closeModal('addScheduleModal');
+
+      if (titleInput) titleInput.value = '';
+      if (locationInput) locationInput.value = '';
+
+      window.renderAll();
+      await window.saveStateToRemote();
+      window.showToast(`[${assignee}] 학원 일정이 추가되었습니다! ⏰`);
+    };
+
+    window.deleteSchedule = async function(id) {
+      const schedule = (window.state.schedules || []).find(s => s.id === id);
+      window.state.schedules = (window.state.schedules || []).filter(s => s.id !== id);
+
+      if (schedule) {
+        addHistoryLog(`일정 '${schedule.title}' 삭제함`);
+      }
+
+      window.renderAll();
+      await window.saveStateToRemote();
+      window.showToast('일정이 삭제되었습니다.');
+    };
+
+    window.stepMemberTaskProgress = async function(id, member) {
+      const task = (window.state.tasks || []).find(t => t.id === id);
+      if (!task) return;
+
+      if (!task.memberProgress) {
+        task.memberProgress = { '첫째': task.progress || 0, '둘째': task.progress || 0 };
+      }
+      if (!task.rewardedMembers) task.rewardedMembers = {};
+
+      const targets = (member === '모두') ? ['첫째', '둘째'] : [member];
+      let updatedNames = [];
+
+      targets.forEach(m => {
+        const currentVal = task.memberProgress[m] || 0;
+        if (currentVal < 100) {
+          const newVal = Math.min(100, currentVal + 25);
+          task.memberProgress[m] = newVal;
+          updatedNames.push(`${m}(${newVal}%)`);
+
+          if (newVal === 100 && !task.rewardedMembers[m]) {
+            task.rewardedMembers[m] = true;
+            window.state.points = (window.state.points || 0) + 500;
+            window.state.stickers = (window.state.stickers || 0) + 1;
+            addHistoryLog(`[${m}] 과제 '${task.title}' 100% 달성 (+500P, 🌟+1)`);
+            if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+          }
+        }
+      });
+
+      const avgProgress = Math.floor(((task.memberProgress['첫째'] || 0) + (task.memberProgress['둘째'] || 0)) / 2);
+      task.progress = avgProgress;
+      task.updatedBy = window.state.roleName;
+
+      if (task.memberProgress['첫째'] === 100 && task.memberProgress['둘째'] === 100) {
+        task.status = 'approved';
+        addHistoryLog(`단체 과제 '${task.title}' 최종 전체 완료! 🎉`);
+        window.showToast(`🎉 모든 인원 달성 완료! 축하합니다!`);
+      } else {
+        addHistoryLog(`'${task.title}' - ${updatedNames.join(', ')} 달성도 업데이트`);
+        window.showToast(`진행률 업데이트: ${updatedNames.join(', ')}`);
+      }
+
+      window.renderAll();
+      await window.saveStateToRemote();
+    };
+
+    window.stepTaskProgress = async function(id) {
+      if (window.state.role.startsWith('parent')) {
+        window.showToast('부모님 모드에서는 진도를 직접 올릴 수 없습니다. 자녀가 직접 수행하도록 해주세요! 👧', '⚠️');
+        return;
+      }
+
+      const task = (window.state.tasks || []).find(t => t.id === id);
+      if (!task) return;
+
+      task.progress = Math.min(100, (task.progress || 0) + 25);
+      task.updatedBy = window.state.roleName;
+
+      if (task.progress >= 100) {
+        task.status = 'approved';
+        window.state.points = (window.state.points || 0) + 500;
+        window.state.stickers = (window.state.stickers || 0) + 1;
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        }
+        addHistoryLog(`과제 '${task.title}' 100% 달성 완료 (+500P, 🌟+1)`);
+        window.showToast(`🎉 100% 완료! 500P와 칭찬 스티커를 받았습니다!`);
+      } else {
+        addHistoryLog(`과제 '${task.title}' 진행률 ${task.progress}%로 업데이트`);
+        window.showToast(`과제 진행률: ${task.progress}%`);
+      }
+
+      window.renderAll();
+      await window.saveStateToRemote();
+    };
+
+    window.approveTask = async function(id) {
+      const task = (window.state.tasks || []).find(t => t.id === id);
+      if (!task) return;
+
+      task.progress = 100;
+      task.status = 'approved';
+      task.updatedBy = window.state.roleName;
+
+      window.state.points = (window.state.points || 0) + 500;
+      window.state.stickers = (window.state.stickers || 0) + 1;
+
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      }
+
+      addHistoryLog(`[${window.state.roleName}]님이 과제 '${task.title}' 승인 완료 (+500P, 🌟+1)`);
+      window.showToast(`👍 과제가 승인되었습니다! (+500P, 스티커 +1)`);
+
+      window.renderAll();
+      await window.saveStateToRemote();
+    };
+
+    window.requestTaskApproval = async function(id) {
+      const task = (window.state.tasks || []).find(t => t.id === id);
+      if (!task) return;
+
+      task.status = 'pending';
+      task.updatedBy = window.state.roleName;
+
+      addHistoryLog(`과제 '${task.title}' (${task.progress}%) 승인 요청`);
+      window.showToast('부모님께 승인 요청을 보냈습니다! 💌');
+
+      window.renderAll();
+      await window.saveStateToRemote();
+    };
+
+    window.deleteTask = async function(id) {
+      const task = (window.state.tasks || []).find(t => t.id === id);
+      window.state.tasks = (window.state.tasks || []).filter(t => t.id !== id);
+
+      if (task) {
+        addHistoryLog(`과제 '${task.title}' 삭제함`);
+      }
+
+      window.renderAll();
+      await window.saveStateToRemote();
+      window.showToast('과제가 삭제되었습니다.');
+    };
+
+    window.playRoulette = function() {
+      if ((window.state.points || 0) < 500) {
+        window.showToast('포인트가 부족합니다! (500P 필요)', '⚠️');
+        return;
+      }
+
+      const spinBtn = document.getElementById('spinBtn');
+      if (spinBtn) spinBtn.disabled = true;
+
+      window.state.points -= 500;
+      const wheel = document.getElementById('rouletteWheel');
+      const randomDeg = 1440 + Math.floor(Math.random() * 360);
+      if (wheel) {
+        wheel.style.transform = `rotate(${randomDeg}deg)`;
+      }
+
+      setTimeout(() => {
+        const rewards = [
+          { text: '1,000P 획득!', points: 1000 },
+          { text: '500P (본전!)', points: 500 },
+          { text: '스마트폰 15분 이용권', coupon: '스마트폰 15분 이용권' },
+          { text: '다음 기회에... 😅', points: 0 }
+        ];
+        const reward = rewards[Math.floor(Math.random() * rewards.length)];
+        if (reward.points) {
+          window.state.points += reward.points;
+        }
+        if (reward.coupon) {
+          if (!window.state.coupons) window.state.coupons = [];
+          window.state.coupons.push({ id: 'cp-' + Date.now(), title: reward.coupon });
+        }
+        addHistoryLog(`룰렛 도전: ${reward.text}`);
+        if (spinBtn) spinBtn.disabled = false;
+        window.renderAll();
+        window.saveStateToRemote();
+        if (typeof confetti === 'function') confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+        window.showToast(`🎉 룰렛 결과: ${reward.text}`);
+      }, 3500);
+    };
+
+    window.buyCoupon = async function(title, price) {
+      if ((window.state.points || 0) < price) {
+        window.showToast(`포인트가 부족합니다! (${price}P 필요)`, '⚠️');
+        return;
+      }
+
+      window.state.points -= price;
+      if (!window.state.coupons) window.state.coupons = [];
+      window.state.coupons.push({ id: 'cp-' + Date.now(), title });
+
+      addHistoryLog(`'${title}' 쿠폰 교환 (-${price}P)`);
+      window.renderAll();
+      await window.saveStateToRemote();
+      window.showToast(`🎟️ '${title}' 교환 완료! 내 쿠폰함에서 확인하세요.`);
+    };
+
+    window.useCoupon = async function(id) {
+      const coupon = (window.state.coupons || []).find(c => c.id === id);
+      window.state.coupons = (window.state.coupons || []).filter(c => c.id !== id);
+
+      if (coupon) {
+        addHistoryLog(`'${coupon.title}' 쿠폰 사용함`);
+      }
+
+      window.renderAll();
+      await window.saveStateToRemote();
+      window.showToast('쿠폰이 사용되었습니다! 🎉');
+    };
+
+    window.clearHistoryLogs = async function() {
+      window.state.history = [];
+      window.renderAll();
+      await window.saveStateToRemote();
+      window.showToast('활동 기록을 비웠습니다.');
+    };
+
+    // Initialize Application
+    document.addEventListener('DOMContentLoaded', () => {
+      window.switchTab('tasks');
       initFirebase();
+      initMQTTRealtimeSync();
     });
   </script>
 </body>
